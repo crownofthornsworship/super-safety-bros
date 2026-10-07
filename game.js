@@ -18,7 +18,7 @@
   const exit = {x:5110,y:390,w:110,h:210};
 
   function show(id){ screens.forEach(s=>s.classList.toggle('active',s.id===id)); }
-  function load(){ ['travis','nick'].forEach(c=>names.forEach(n=>{const im=new Image();im.src=`${c}-${n}.png`;assets[`${c}-${n}`]=im;})); }
+  function load(){ ['travis','nick'].forEach(c=>names.forEach(n=>{const im=new Image();im.src=`${c}-${n}.png?v=3`;assets[`${c}-${n}`]=im;})); }
   function reset(){ Object.assign(player,{x:160,y:350,vx:0,vy:0,onGround:false,dir:1,anim:0}); camera=0;score=0;radios.forEach(r=>r.got=false);updateHud(); }
   function updateHud(){document.getElementById('score').textContent=score;document.getElementById('hud-name').textContent=selected.toUpperCase();}
   function start(){reset();show('game-screen');running=true;paused=false;last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(loop);}
