@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#0a2031">
+  <meta name="description" content="Nick and Travis patrol the campus in Super Safety Bros, an original Salt and Light platform game.">
+  <meta property="og:title" content="Super Safety Bros">
+  <meta property="og:description" content="Choose Nick or Travis and keep the church campus safe!">
+  <meta property="og:image" content="social-preview.png?v=1">
+  <meta property="og:type" content="website">
+  <title>Super Safety Bros</title>
+  <link rel="stylesheet" href="styles.css?v=1">
+</head>
+<body>
+  <main id="app">
+    <section id="menu" class="screen active" aria-labelledby="game-title">
+      <div class="badge">A SALT &amp; LIGHT GAME</div>
+      <h1 id="game-title"><span>SUPER</span> SAFETY BROS</h1>
+      <p class="tagline">Faithful. Watchful. Ready.</p>
+      <div class="character-grid" aria-label="Choose your safety brother">
+        <button class="character-card selected" data-character="travis">
+          <img src="travis-idle.png" alt="Travis game character">
+          <strong>TRAVIS</strong><small>Steady &amp; Strong</small>
+        </button>
+        <button class="character-card" data-character="nick">
+          <img src="nick-idle.png" alt="Nick game character">
+          <strong>NICK</strong><small>Quick &amp; Alert</small>
+        </button>
+      </div>
+      <button id="start" class="primary">START PATROL</button>
+      <p class="controls-hint">Move: A/D or ←/→ &nbsp; • &nbsp; Jump: W, ↑, or Space</p>
+    </section>
+
+    <section id="game-screen" class="screen" aria-label="Game area">
+      <header class="hud">
+        <div><small>SAFETY BRO</small><strong id="hud-name">TRAVIS</strong></div>
+        <div><small>RADIOS</small><strong>📻 <span id="score">0</span>/8</strong></div>
+        <div><small>MISSION</small><strong id="mission">PATROL</strong></div>
+      </header>
+      <canvas id="game" width="1280" height="720"></canvas>
+      <button id="pause" aria-label="Pause game">Ⅱ</button>
+      <div class="mobile-controls" aria-label="Touch controls">
+        <button data-key="left" aria-label="Move left">◀</button>
+        <button data-key="right" aria-label="Move right">▶</button>
+        <button data-key="jump" class="jump" aria-label="Jump">▲</button>
+      </div>
+    </section>
+
+    <section id="result" class="screen" aria-live="polite">
+      <div class="result-card">
+        <div class="result-star">★</div>
+        <h2>Campus Secured!</h2>
+        <p id="result-copy">Great patrol, Safety Bro.</p>
+        <button id="again" class="primary">PATROL AGAIN</button>
+        <button id="characters" class="secondary">CHANGE CHARACTER</button>
+      </div>
+    </section>
+  </main>
+  <footer>⚡ <a href="https://venmo.com/u/MTA-7777" target="_blank" rel="noopener">Buy Mike a C4 · @MTA-7777</a></footer>
+  <script src="game.js?v=1"></script>
+</body>
+</html>
