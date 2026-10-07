@@ -7,10 +7,11 @@
   <meta name="description" content="Nick and Travis patrol the campus in Super Safety Bros, an original Salt and Light platform game.">
   <meta property="og:title" content="Super Safety Bros">
   <meta property="og:description" content="Choose Nick or Travis and keep the church campus safe!">
-  <meta property="og:image" content="social-preview.png?v=3">
+  <meta property="og:image" content="social-preview.png?v=4">
   <meta property="og:type" content="website">
   <title>Super Safety Bros</title>
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="gameplay-v4.css?v=4">
 </head>
 <body>
   <main id="app">
@@ -35,7 +36,9 @@
     <section id="game-screen" class="screen" aria-label="Game area">
       <header class="hud">
         <div><small>SAFETY BRO</small><strong id="hud-name">TRAVIS</strong></div>
-        <div><small>RADIOS</small><strong>📻 <span id="score">0</span>/8</strong></div>
+        <div><small>LIVES</small><strong id="lives">♥ ♥ ♥</strong></div>
+        <div><small>LEVEL</small><strong id="level">1-1</strong></div>
+        <div><small>RADIOS</small><strong>📻 <span id="score">0</span>/<span id="radio-total">8</span></strong></div>
         <div><small>MISSION</small><strong id="mission">PATROL</strong></div>
       </header>
       <canvas id="game" width="1280" height="720"></canvas>
@@ -50,14 +53,14 @@
     <section id="result" class="screen" aria-live="polite">
       <div class="result-card">
         <div class="result-star">★</div>
-        <h2>Campus Secured!</h2>
+        <h2 id="result-title">Campus Secured!</h2>
         <p id="result-copy">Great patrol, Safety Bro.</p>
-        <button id="again" class="primary">PATROL AGAIN</button>
+        <button id="again" class="primary">NEXT LEVEL</button>
         <button id="characters" class="secondary">CHANGE CHARACTER</button>
       </div>
     </section>
   </main>
   <footer>⚡ <a href="https://venmo.com/u/MTA-7777" target="_blank" rel="noopener">Buy Mike a C4 · @MTA-7777</a></footer>
-  <script src="game.js?v=3"></script>
+  <script src="game.js?v=4"></script>
 </body>
 </html>
