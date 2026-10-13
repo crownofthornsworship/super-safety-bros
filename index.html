@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
   <meta name="theme-color" content="#0a2031">
-  <meta name="description" content="Choose Nick or Travis across ten platforming stages with power-ups, hidden safety caches, three worlds, and a final boss fight.">
+  <meta name="description" content="Choose Nick or Travis, defeat the final boss, and unlock Josh Lane and Tyler across ten platforming stages.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Super Safety Bros | Salt &amp; Light Games">
   <meta property="og:description" content="Power up Nick or Travis, discover hidden safety caches, clear ten stages across three worlds, and face the final boss.">
@@ -30,6 +30,7 @@
       <h1 id="game-title"><span>SUPER</span> SAFETY BROS</h1>
       <p class="tagline">Faithful. Watchful. Ready.</p>
       <p class="world-count">3 WORLDS · 10 STAGES · FINAL BOSS</p>
+      <p id="unlock-prompt" class="unlock-prompt" role="status" hidden></p>
       <div class="character-grid" aria-label="Choose your safety brother">
         <button class="character-card selected" data-character="travis">
           <img src="travis-idle.png?v=3" alt="Travis game character">
@@ -38,6 +39,14 @@
         <button class="character-card" data-character="nick">
           <img src="nick-idle.png?v=3" alt="Nick game character">
           <strong>NICK</strong><small>Quick &amp; Alert</small>
+        </button>
+        <button class="character-card locked" data-character="josh" disabled aria-disabled="true" aria-label="Josh Lane, locked. Defeat the final boss to unlock.">
+          <img src="josh-idle.png?v=9" alt="Josh Lane game character">
+          <strong>JOSH LANE</strong><small class="character-status">🔒 Beat the final boss</small>
+        </button>
+        <button class="character-card locked" data-character="tyler" disabled aria-disabled="true" aria-label="Tyler, locked. Win the final boss stage twice to unlock.">
+          <img src="tyler-idle.png?v=9" alt="Tyler game character">
+          <strong>TYLER</strong><small class="character-status">🔒 Win the final twice</small>
         </button>
       </div>
       <button id="start" class="primary">START PATROL</button>
@@ -72,6 +81,6 @@
     </section>
   </main>
   <footer>⚡ <a href="https://venmo.com/u/MTA-7777" target="_blank" rel="noopener">Buy Mike a C4 · @MTA-7777</a></footer>
-  <script src="game.js?v=8"></script>
+  <script src="game.js?v=9"></script>
 </body>
 </html>
