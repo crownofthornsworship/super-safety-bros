@@ -1,86 +1,146 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-  <meta name="theme-color" content="#0a2031">
-  <meta name="description" content="Choose Nick or Travis, defeat the final boss, and unlock Josh Lane and Tyler across ten platforming stages.">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Super Safety Bros | Salt &amp; Light Games">
-  <meta property="og:description" content="Power up Nick or Travis, discover hidden safety caches, clear ten stages across three worlds, and face the final boss.">
-  <meta property="og:url" content="https://crownofthornsworship.github.io/super-safety-bros/">
-  <meta property="og:image" content="https://crownofthornsworship.github.io/super-safety-bros/social-preview.png?v=5">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Nick and Travis as the illustrated heroes of Super Safety Bros">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Super Safety Bros | Salt &amp; Light Games">
-  <meta name="twitter:description" content="Three worlds. Ten stages. New power-ups and secrets. One final boss fight.">
-  <meta name="twitter:image" content="https://crownofthornsworship.github.io/super-safety-bros/social-preview.png?v=5">
-  <title>Super Safety Bros | Salt &amp; Light Games</title>
-  <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png?v=5">
-  <link rel="apple-touch-icon" href="icon-512.png?v=5">
-  <link rel="stylesheet" href="styles.css?v=9">
-  <link rel="stylesheet" href="gameplay-v4.css?v=6">
-</head>
-<body>
-  <main id="app">
-    <section id="menu" class="screen active" aria-labelledby="game-title">
-      <div class="badge">A SALT &amp; LIGHT GAME</div>
-      <h1 id="game-title"><span>SUPER</span> SAFETY BROS</h1>
-      <p class="tagline">Faithful. Watchful. Ready.</p>
-      <p class="world-count">3 WORLDS · 10 STAGES · FINAL BOSS</p>
-      <p id="unlock-prompt" class="unlock-prompt" role="status" hidden></p>
-      <div class="character-grid" aria-label="Choose your safety brother">
-        <button class="character-card selected" data-character="travis">
-          <img src="travis-idle.png?v=3" alt="Travis game character">
-          <strong>TRAVIS</strong><small>Steady &amp; Strong</small>
-        </button>
-        <button class="character-card" data-character="nick">
-          <img src="nick-idle.png?v=3" alt="Nick game character">
-          <strong>NICK</strong><small>Quick &amp; Alert</small>
-        </button>
-        <button class="character-card locked" data-character="josh" disabled aria-disabled="true" aria-label="Josh Lane, locked. Defeat the final boss to unlock.">
-          <img src="josh-idle.png?v=11" alt="Josh Lane game character">
-          <strong>JOSH LANE</strong><small class="character-status">🔒 Beat the final boss</small>
-        </button>
-        <button class="character-card locked" data-character="tyler" disabled aria-disabled="true" aria-label="Tyler, locked. Win the final boss stage twice to unlock.">
-          <img src="tyler-idle.png?v=11" alt="Tyler game character">
-          <strong>TYLER</strong><small class="character-status">🔒 Win the final twice</small>
-        </button>
-      </div>
-      <button id="start" class="primary">START PATROL</button>
-      <p class="controls-hint">Move: A/D or ←/→ &nbsp; • &nbsp; Jump: W, ↑, or Space</p>
-    </section>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"
+    />
+    <meta name="theme-color" content="#0a2031" />
+    <meta
+      name="description"
+      content="Race through six worlds and twenty stages, defeat two bosses, and unlock secret Safety Bros Josh Lane and Tyler."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Super Safety Bros | Salt &amp; Light Games"
+    />
+    <meta
+      property="og:description"
+      content="Six worlds. Twenty stages. Two boss fights. Beat Boss 1 to unlock Josh Lane and Boss 2 to unlock Tyler."
+    />
+    <meta
+      property="og:url"
+      content="https://crownofthornsworship.github.io/super-safety-bros/"
+    />
+    <meta
+      property="og:image"
+      content="https://crownofthornsworship.github.io/super-safety-bros/social-preview.png?v=5"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Nick and Travis as the illustrated heroes of Super Safety Bros"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Super Safety Bros | Salt &amp; Light Games"
+    />
+    <meta
+      name="twitter:description"
+      content="Six worlds, twenty stages, two bosses, and two secret characters to unlock."
+    />
+    <meta
+      name="twitter:image"
+      content="https://crownofthornsworship.github.io/super-safety-bros/social-preview.png?v=5"
+    />
+    <title>Super Safety Bros | Salt &amp; Light Games</title>
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png?v=5" />
+    <link rel="apple-touch-icon" href="icon-512.png?v=5" />
+    <link rel="stylesheet" href="styles.css?v=9" />
+    <link rel="stylesheet" href="gameplay-v4.css?v=7" />
+  </head>
+  <body>
+    <main id="app">
+      <section id="menu" class="screen active" aria-labelledby="game-title">
+        <div class="badge">A SALT &amp; LIGHT GAME</div>
+        <h1 id="game-title"><span>SUPER</span> SAFETY BROS</h1>
+        <p class="tagline">Faithful. Watchful. Ready.</p>
+        <p class="world-count">6 WORLDS · 20 STAGES · 2 BOSS FIGHTS</p>
+        <p id="unlock-prompt" class="unlock-prompt" role="status" hidden></p>
+        <div class="character-grid" aria-label="Choose your safety brother">
+          <button class="character-card selected" data-character="travis">
+            <img src="travis-idle.png?v=3" alt="Travis game character" />
+            <strong>TRAVIS</strong><small>Steady &amp; Strong</small>
+          </button>
+          <button class="character-card" data-character="nick">
+            <img src="nick-idle.png?v=3" alt="Nick game character" />
+            <strong>NICK</strong><small>Quick &amp; Alert</small>
+          </button>
+          <button
+            class="character-card locked"
+            data-character="josh"
+            disabled
+            aria-disabled="true"
+            aria-label="Josh Lane, locked. Beat Boss 1 to unlock."
+          >
+            <img src="josh-idle.png?v=11" alt="Josh Lane game character" />
+            <strong>JOSH LANE</strong
+            ><small class="character-status">🔒 Beat Boss 1</small>
+          </button>
+          <button
+            class="character-card locked"
+            data-character="tyler"
+            disabled
+            aria-disabled="true"
+            aria-label="Tyler, locked. Beat Boss 2 to unlock."
+          >
+            <img src="tyler-idle.png?v=11" alt="Tyler game character" />
+            <strong>TYLER</strong
+            ><small class="character-status">🔒 Beat Boss 2</small>
+          </button>
+        </div>
+        <button id="start" class="primary">START PATROL</button>
+        <p class="controls-hint">
+          Move: A/D or ←/→ &nbsp; • &nbsp; Jump: W, ↑, or Space
+        </p>
+      </section>
 
-    <section id="game-screen" class="screen" aria-label="Game area">
-      <header class="hud">
-        <div><small>SAFETY BRO</small><strong id="hud-name">TRAVIS</strong></div>
-        <div><small>LIVES</small><strong id="lives">♥ ♥ ♥</strong></div>
-        <div><small>LEVEL</small><strong id="level">1-1</strong></div>
-        <div><small>RADIOS</small><strong>📻 <span id="score">0</span>/<span id="radio-total">8</span></strong></div>
-        <div><small>MISSION</small><strong id="mission">PATROL</strong></div>
-      </header>
-      <canvas id="game" width="1280" height="720"></canvas>
-      <button id="pause" aria-label="Pause game">Ⅱ</button>
-      <div class="mobile-controls" aria-label="Touch controls">
-        <button data-key="left" aria-label="Move left">◀</button>
-        <button data-key="right" aria-label="Move right">▶</button>
-        <button data-key="jump" class="jump" aria-label="Jump">▲</button>
-      </div>
-    </section>
+      <section id="game-screen" class="screen" aria-label="Game area">
+        <header class="hud">
+          <div>
+            <small>SAFETY BRO</small><strong id="hud-name">TRAVIS</strong>
+          </div>
+          <div><small>LIVES</small><strong id="lives">♥ ♥ ♥</strong></div>
+          <div><small>LEVEL</small><strong id="level">1-1</strong></div>
+          <div>
+            <small>RADIOS</small
+            ><strong
+              >📻 <span id="score">0</span>/<span id="radio-total"
+                >8</span
+              ></strong
+            >
+          </div>
+          <div><small>MISSION</small><strong id="mission">PATROL</strong></div>
+        </header>
+        <canvas id="game" width="1280" height="720"></canvas>
+        <button id="pause" aria-label="Pause game">Ⅱ</button>
+        <div class="mobile-controls" aria-label="Touch controls">
+          <button data-key="left" aria-label="Move left">◀</button>
+          <button data-key="right" aria-label="Move right">▶</button>
+          <button data-key="jump" class="jump" aria-label="Jump">▲</button>
+        </div>
+      </section>
 
-    <section id="result" class="screen" aria-live="polite">
-      <div class="result-card">
-        <div class="result-star">★</div>
-        <h2 id="result-title">Campus Secured!</h2>
-        <p id="result-copy">Great patrol, Safety Bro.</p>
-        <button id="again" class="primary">NEXT LEVEL</button>
-        <button id="characters" class="secondary">CHANGE CHARACTER</button>
-      </div>
-    </section>
-  </main>
-  <footer>⚡ <a href="https://venmo.com/u/MTA-7777" target="_blank" rel="noopener">Buy Mike a C4 · @MTA-7777</a></footer>
-  <script src="game.js?v=11"></script>
-</body>
+      <section id="result" class="screen" aria-live="polite">
+        <div class="result-card">
+          <div class="result-star">★</div>
+          <h2 id="result-title">Campus Secured!</h2>
+          <p id="result-copy">Great patrol, Safety Bro.</p>
+          <button id="again" class="primary">NEXT LEVEL</button>
+          <button id="characters" class="secondary">CHANGE CHARACTER</button>
+        </div>
+      </section>
+    </main>
+    <footer>
+      ⚡
+      <a href="https://venmo.com/u/MTA-7777" target="_blank" rel="noopener"
+        >Buy Mike a C4 · @MTA-7777</a
+      >
+    </footer>
+    <script src="game.js?v=12"></script>
+  </body>
 </html>

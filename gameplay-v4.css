@@ -36,6 +36,14 @@
 }
 
 @media (max-height: 700px) and (orientation: landscape) {
+  #game-screen {
+    height: calc(100dvh - 8px);
+    overflow: hidden;
+  }
+  #game-screen canvas {
+    height: calc(100% - 47px);
+    aspect-ratio: auto;
+  }
   .mobile-controls {
     display: flex;
     position: absolute;
