@@ -1232,7 +1232,7 @@
         : "Use Your Continue?";
       document.getElementById("result-copy").textContent = continueUsed
         ? "The team can regroup and restart the mission."
-        : "Your one Continue restores all three lives on this level.";
+        : `Your one Continue restores all ${experience.difficulty === "easy" ? "five" : "three"} lives on this level.`;
       document.getElementById("again").textContent = continueUsed
         ? "RESTART GAME"
         : "USE CONTINUE";
@@ -1274,7 +1274,7 @@
   function resultButton() {
     if (resultAction === "continue") {
       continueUsed = true;
-      lives = 3;
+      lives = experience.difficulty === "easy" ? 5 : 3;
       sizePlayer(true, false);
       resetPlayer();
       updateHud();
