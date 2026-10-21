@@ -52,6 +52,9 @@
     <link rel="apple-touch-icon" href="icon-512.png?v=5" />
     <link rel="stylesheet" href="styles.css?v=9" />
     <link rel="stylesheet" href="gameplay-v4.css?v=7" />
+    <style>
+      .play-options{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:12px 0}.play-options button,.tutorial-actions button{min-height:44px;border:2px solid #ffffff55;border-radius:12px;background:#102d43;color:#fff;font-weight:900;padding:10px 18px}.play-options button.selected{background:#ffd532;color:#15222b;border-color:#fff}.tutorial-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.tutorial-card{position:fixed;z-index:100001;left:50%;bottom:max(112px,calc(env(safe-area-inset-bottom) + 94px));transform:translateX(-50%);width:min(560px,calc(100% - 24px));padding:16px;border-radius:18px;background:#071c2ff2;color:#fff;border:2px solid #72dcff;box-shadow:0 12px 40px #0009;text-align:center}.tutorial-card h2{margin:0 0 6px;color:#ffd532}.tutorial-card p{margin:4px 0 12px}.tutorial-card[hidden]{display:none}@media(max-width:700px){.tutorial-card{bottom:max(154px,calc(env(safe-area-inset-bottom) + 142px));padding:12px}.mobile-controls button{opacity:.82}}
+    </style>
   </head>
   <body>
 <a href="https://crownofthornsworship.github.io/light-and-life-games/" aria-label="Back to Light & Life Games" style="position:fixed;top:max(12px,env(safe-area-inset-top));left:max(12px,env(safe-area-inset-left));z-index:99999;padding:10px 14px;border-radius:999px;background:#101820e6;color:#fff;text-decoration:none;font:800 14px/1.1 system-ui,-apple-system,sans-serif;box-shadow:0 4px 18px #0006;border:1px solid #ffffff40;backdrop-filter:blur(8px)">⌂ Light & Life Games</a>
@@ -94,7 +97,8 @@
             ><small class="character-status">🔒 Beat Boss 2</small>
           </button>
         </div>
-        <button id="start" class="primary">START PATROL</button>
+        <div class="play-options" aria-label="Difficulty"><button id="difficulty-easy" class="selected" type="button">EASY · 5 LIVES</button><button id="difficulty-normal" type="button">NORMAL · 3 LIVES</button></div>
+        <div class="tutorial-actions"><button id="learn" type="button">LEARN TO PLAY</button><button id="start" class="primary">START PLAYING</button></div>
         <p class="controls-hint">
           Move: A/D or ←/→ &nbsp; • &nbsp; Jump: W, ↑, or Space
         </p>
@@ -119,6 +123,7 @@
         </header>
         <canvas id="game" width="1280" height="720"></canvas>
         <button id="pause" aria-label="Pause game">Ⅱ</button>
+        <aside id="tutorial-card" class="tutorial-card" hidden aria-live="polite"><h2 id="tutorial-title">Training Patrol</h2><p id="tutorial-copy"></p><div class="tutorial-actions"><button id="tutorial-next" type="button">NEXT</button><button id="tutorial-skip" type="button">SKIP TUTORIAL</button></div></aside>
         <div class="mobile-controls" aria-label="Touch controls">
           <button data-key="left" aria-label="Move left">◀</button>
           <button data-key="right" aria-label="Move right">▶</button>
@@ -142,6 +147,6 @@
         >Buy Mike a C4 · @MTA-7777</a
       >
     </footer>
-    <script src="game.js?v=12"></script>
+    <script src="game.js?v=13"></script>
   </body>
 </html>
