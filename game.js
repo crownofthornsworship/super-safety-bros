@@ -25,6 +25,42 @@
       },
     ],
   };
+  const experienceKey = "superSafetyBros.experience.v1";
+  const defaultExperience = { difficulty: "easy", tutorial: "pending", tips: true };
+  function readExperience() {
+    try { return { ...defaultExperience, ...JSON.parse(localStorage.getItem(experienceKey) || "{}") }; }
+    catch { return { ...defaultExperience }; }
+  }
+  let experience = readExperience();
+  const saveExperience = () => localStorage.setItem(experienceKey, JSON.stringify(experience));
+  const tutorialSteps = [
+    ["Move to the marker", "Use A/D, ←/→, or the touch arrows. Move a short distance to continue."],
+    ["Practice a jump", "Press W, ↑, Space, or the ▲ button. Easy mode gives you a little more airtime."],
+    ["Know the hazards", "Cones, cords, enemies, and gaps can hurt you. In Easy mode, enemies move slower and protection lasts longer."],
+    ["Use power-ups", "Safety vests keep you big. Hard hats add protection, and shields block one hit."],
+    ["Finish the patrol", "Collect every radio, defeat any boss, then reach the EXIT. Checkpoints save your place in each stage."]
+  ];
+  let tutorial = { active: false, step: 0, startX: 160 };
+  function renderTutorial() {
+    const card = document.getElementById("tutorial-card");
+    if (!tutorial.active) { card.hidden = true; return; }
+    card.hidden = false;
+    const [title, copy] = tutorialSteps[tutorial.step];
+    document.getElementById("tutorial-title").textContent = title;
+    document.getElementById("tutorial-copy").textContent = copy;
+    document.getElementById("tutorial-next").hidden = tutorial.step < 2;
+    document.getElementById("tutorial-next").textContent = tutorial.step === tutorialSteps.length - 1 ? "FINISH TRAINING" : "NEXT";
+  }
+  function tutorialAction(action) {
+    if (!tutorial.active) return;
+    if ((tutorial.step === 0 && action === "move") || (tutorial.step === 1 && action === "jump")) {
+      tutorial.step++; renderTutorial();
+    }
+  }
+  function finishTutorial(status = "complete") {
+    tutorial.active = false; experience.tutorial = status; saveExperience(); renderTutorial();
+    announce(status === "skipped" ? "Tutorial skipped — good luck!" : "Training complete — collect the radios!", 2.5);
+  }
   const defaultUnlocks = () => ({
     boss1Wins: 0,
     boss2Wins: 0,
@@ -78,7 +114,8 @@
     messageTimer = 0,
     message = "",
     levelFinished = false,
-    pendingUnlock = "";
+    pendingUnlock = "",
+    checkpointX = 160;
   const player = {
     x: 160,
     y: 350,
@@ -1045,6 +1082,7 @@
     boss.src = "boss-final-intruder.png?v=7";
     assets.boss = boss;
     updateCharacterCards();
+    setDifficulty(experience.difficulty === "normal" ? "normal" : "easy");
   }
   levels.forEach((stage, i) => {
     stage.powerups = [
@@ -1100,7 +1138,7 @@
       player.shield = 0;
     }
     Object.assign(player, {
-      x: 160,
+      x: full ? 160 : checkpointX,
       y: 360,
       vx: 0,
       vy: 0,
@@ -1116,15 +1154,24 @@
     level = fresh(levels[i]);
     score = 0;
     levelFinished = false;
+    checkpointX = 160;
+    if (experience.difficulty === "easy" && i < 3) {
+      level.enemies.forEach((e) => (e.vx *= 0.72));
+      level.hazards = level.hazards.filter((_, hazardIndex) => hazardIndex !== 1);
+    }
     if (resetLives) {
-      lives = 3;
+      lives = experience.difficulty === "easy" ? 5 : 3;
       continueUsed = false;
     }
     resetPlayer(true);
     updateHud();
   }
-  function startGame() {
+  function startGame(training = false) {
+    tutorial.active = training;
+    tutorial.step = 0;
+    tutorial.startX = 160;
     loadLevel(0, true);
+    renderTutorial();
     show("game-screen");
     running = true;
     paused = false;
@@ -1244,24 +1291,28 @@
     } else startGame();
   }
   function update(dt) {
-    const accel = 2300,
-      max = selected === "nick" ? 460 : 420,
-      jump = selected === "travis" ? 870 : 920;
+    const easy = experience.difficulty === "easy",
+      accel = easy ? 2700 : 2300,
+      max = (selected === "nick" ? 460 : 420) + (easy ? 20 : 0),
+      jump = (selected === "travis" ? 870 : 920) + (easy ? 35 : 0);
     player.invulnerable = Math.max(0, player.invulnerable - dt);
     messageTimer = Math.max(0, messageTimer - dt);
     if (keys.left) {
+      if (tutorial.active && Math.abs(player.x - tutorial.startX) > 70) tutorialAction("move");
       player.vx = Math.max(player.vx - accel * dt, -max);
       player.dir = -1;
     } else if (keys.right) {
+      if (tutorial.active && Math.abs(player.x - tutorial.startX) > 70) tutorialAction("move");
       player.vx = Math.min(player.vx + accel * dt, max);
       player.dir = 1;
     } else player.vx *= Math.pow(0.0005, dt);
     if (keys.jump && player.onGround) {
       player.vy = -jump;
       player.onGround = false;
+      tutorialAction("jump");
       keys.jump = false;
     }
-    player.vy += 2200 * dt;
+    player.vy += (easy ? 2000 : 2200) * dt;
     const oldY = player.y;
     player.x += player.vx * dt;
     player.y += player.vy * dt;
@@ -1436,6 +1487,10 @@
       (p) => !p.dead && p.y < H + 120 && p.x > -100 && p.x < level.width + 100,
     );
     level.bossDefeatedFlash = Math.max(0, (level.bossDefeatedFlash || 0) - dt);
+    if (player.onGround && player.x > checkpointX + 900) {
+      checkpointX = player.x;
+      announce("Checkpoint reached!", 1.2);
+    }
     const objectiveClear =
       score === level.radios.length && (!level.boss || !level.boss.alive);
     if (player.y > H + 220) {
@@ -1913,7 +1968,17 @@
         .forEach((x) => x.classList.toggle("selected", x === b));
     }),
   );
-  document.getElementById("start").onclick = startGame;
+  function setDifficulty(value) {
+    experience.difficulty = value; saveExperience();
+    document.getElementById("difficulty-easy").classList.toggle("selected", value === "easy");
+    document.getElementById("difficulty-normal").classList.toggle("selected", value === "normal");
+  }
+  document.getElementById("difficulty-easy").onclick = () => setDifficulty("easy");
+  document.getElementById("difficulty-normal").onclick = () => setDifficulty("normal");
+  document.getElementById("learn").onclick = () => startGame(true);
+  document.getElementById("start").onclick = () => { if (experience.tutorial === "pending") startGame(true); else startGame(false); };
+  document.getElementById("tutorial-next").onclick = () => { if (tutorial.step < tutorialSteps.length - 1) { tutorial.step++; renderTutorial(); } else finishTutorial("complete"); };
+  document.getElementById("tutorial-skip").onclick = () => finishTutorial("skipped");
   document.getElementById("again").onclick = resultButton;
   document.getElementById("characters").onclick = showMenu;
   document.getElementById("pause").onclick = () => (paused = !paused);
